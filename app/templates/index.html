@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Bill Hoblitzell">
+  <title>&#10054 Snowbeta</title>
+
+  <!-- bootstrap stylesheet CDN  -->
+  <link rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" 
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" 
+    crossorigin="anonymous">
+
+  <!--Local styles -->
+  <link rel='stylesheet' , type='text/css' href="{{ url_for('static', filename='css/local-styles.css') }}">
+</head>
+
+<body class="d-flex flex-column h-100">
+    
+<header>
+
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{url_for('index')}}">&#10054 Snowbeta</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('about')}}">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+</header>
+
+<!-- Main page content -->
+
+<main class="flex-shrink-0 container">
+    
+
+<!-- tabsets for viewing plots  -->
+
+<ul class="nav nav-tabs " id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="region-tab" data-bs-toggle="tab" data-bs-target="#region" type="button" role="tab" aria-controls="region" aria-selected="true">Regions</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="site-tab" data-bs-toggle="tab" data-bs-target="#site" type="button" role="tab" aria-controls="site" aria-selected="false">Sites</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="forecast-tab" data-bs-toggle="tab" data-bs-target="#forecast" type="button" role="tab" aria-controls="forecast" aria-selected="false">Avalanche and Weather Forecasts</button>
+  </li>
+
+</ul>
+
+
+<div class="container">
+
+
+  
+</div>
+<div class="tab-content" id="myTabContent">
+
+  <!-- Tab 1: regional comparision plots -->
+  <div class="tab-pane fade show active" id="region" role="tabpanel" aria-labelledby="region-tab">
+
+  <!-- <div class="tab-pane fade" id="region" role="tabpanel" aria-labelledby="region-tab">  delete this line after dev and uncomment above -->
+  
+    <div class="container-fluid">
+
+      <div class="row">
+        <h4 class="col text-left" style="padding:10px;">Plot grouped SNOTEL data by region</h4>
+      </div>
+
+      <div class="row align-items-center d-inline-flex">
+
+        <div class="col-auto col-xs-12">
+          <div>Apply filters:</div>
+        </div>
+      
+        <div class="col-auto" >
+          <div class="form-group d-inline-flex align-items-center mx-1">
+            <select class="form-control" id="regionplots-state-select"> 
+              <option value="selectstate" selected hidden>Select state...</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="col-auto" >
+          <div class="form-group d-inline-flex align-items-center mx-1">
+            <select class="form-control" id="regionplots-zone-select"> 
+              <option value="selectzone" selected hidden>Select mountain zone...</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="col-auto">
+          <btn type="submit" id="regionplots-build-plots-btn" class="btn btn-secondary">Build Regional Plots</btn>
+        </div>
+  
+      </div>
+    </div>
+
+    <!-- Tab 1 plot display area -->
+    <div class="container">
+
+      <div class="row justify-content-center">
+        <div id="new-snow-plot" class="col responsive-plot" ></div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div id="temp-plot" class="col responsive-plot"></div>
+      </div>
+  
+      <div class="row justify-content-center">
+        <div id="depth-plot" class="col responsive-plot"></div>
+      </div>
+  
+      <div class="row justify-content-center">
+        <div id="season-plot" class="col responsive-plot" ></div>
+      </div>
+
+    </div>
+    
+  </div> <!-- end TAB 1 -->
+
+
+  
+  <!-- TAB 2 : Individual Site Plots  -->
+
+  <!-- Tab 2 selection filters for state, mountain region, and site selection areas  -->
+
+  <div class="tab-pane fade" id="site" role="tabpanel" aria-labelledby="site-tab">
+  <!-- <div class="tab-pane fade show active" id="site" role="tabpanel" aria-labelledby="site-tab"> delete this and uncomment above after dev -->
+  
+    <div class="container-fluid">
+
+      <div class="row">
+        <h4 class="col" style="padding:10px;">Plot individual SNOTEL site data</h4>
+      </div>
+      
+      <div class="row align-items-center d-inline-flex">
+
+        <div class="col-auto col-xs-12">
+          <div>Apply filters:</div>
+        </div>
+
+        <div class="col-auto" >
+          <div class="form-group d-inline-flex align-items-center mx-1">
+              <select class="form-control" name="" id="siteplots-state-select">
+                  <option value="selectstate" hidden>Select state...</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="col-auto" >
+          <div class="form-group d-inline-flex align-items-center mx-1">
+              <select class="form-control" name="selectzone" id="siteplots-zone-select">
+                  <option value="selectzone" hidden>Select mountain zone (optional)</option>
+              </select>
+          </div>
+        </div>
+        
+        <div class="col-auto" >
+          <div class="form-group d-inline-flex align-items-center mx-1">
+            <select class="form-control" name="" id="siteplots-site-select">
+                <option value="selectsite">Choose SNOTEL site...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <btn type="submit" id="siteplots-build-plots-btn" class="btn btn-secondary">Build Site Plots</btn>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tab 2 plot display area -->
+    <div class="container">
+
+      <div class="row justify-content-center">
+        <div id="seasonal-snow-meteogram-plot" class="col responsive-plot" ></div>
+      </div>
+
+      <!-- <div class="row justify-content-center">
+        <div id="7d-hourly-temp-rh-dewpoint-plot" class="col responsive-plot"></div>
+      </div> -->
+
+      <div class="row justify-content-center">
+        <div id="seasonal-temperature-plot" class="col responsive-plot"></div>
+      </div>
+  
+      <div class="row justify-content-center">
+        <div id="7d-wind-plot" class="col responsive-plot" ></div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div id="SWE-regime-plot" class="col responsive-plot"></div>
+      </div>
+
+    </div>
+    
+  </div> <!-- end Tab 2-->
+
+  <!-- Tab 3: Avalanche and CAIC snow weather forecast links -->
+
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade" id="forecast" role="tabpanel" aria-labelledby="foreast-tab">
+
+      <div class="container">
+
+        <div class="row">
+
+            <h4 class='text-center'>Current Western Avalanche Hazard</h4>
+            <p class='text-center'>(Click on map zone for additional info and links)</p>
+
+            <div class="col-10 d-flex justify-content-center" >
+                <iframe class="**map**", src="/build_fx_map" width="90%", style="border:none; min-height:500px" scrolling="no" style="overflow:hidden"></iframe>
+            </div>
+
+            <div id='danger-legend' class="col-2">
+                <table >
+                    <tr>
+                      <th>
+                        Danger Key
+                      </th>
+                    </tr>
+                    <tr>
+                      <td style="background-color:#000; color:#fff; padding:2px;">Extreme</td>
+                    </tr>
+                    <tr>
+                      <td style="background-color:#ff0000; color:#fff;padding:2px;">High</td>
+                    </tr>
+                    <tr>
+                      <td style="background-color:#ff9933; color:#fff;padding:2px;">Considerable</td>
+                    </tr>
+                    <tr>
+                      <td style="background-color:#fdda0d; color:#fff;padding:2px;">Moderate</td>
+                    </tr>
+                    <tr>
+                      <td style="background-color:#4cbb17; color:#fff;padding:2px;">Low</td>
+                    </tr>
+                  </table>
+                  <br>
+                  <hr>
+                  <br>
+                  <p><a href="https://avalanche.org/avalanche-encyclopedia/human/resources/north-american-public-avalanche-danger-scale/" target="_blank">What is the North American danger scale?</a></p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <h4 class="text-center">Western US Snow Forecast</h4>
+            <p class="text-center">CAIC WRF Model 84 Hour loop<nbsp><nbsp>  <em><a href="https://avalanche.state.co.us/forecasts/weather/model-forecasts" target="_blank">Go to CAIC Forecast Models Page...</a></em></p>
+            <div class="col d-flex justify-content-center ">
+                <iframe src="{{caic_wrf_url}}" frameborder="0" style="width:80%; height:850px; font-size:0.8rem;"   ></iframe>
+            </div>
+        </div>
+
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div> <!-- end tab content -->
+
+</div>
+
+
+</main>
+
+<!-- footer  -->
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Bill Hoblitzell | Eddy Out Design |&copy; 2023.</span>
+  </div>
+</footer>
+
+
+
+<!-- Plotly library -->
+<!-- <script src='https://cdn.plot.ly/plotly-latest.min.js'></script> -->
+<script src="https://cdn.plot.ly/plotly-2.18.0.min.js"></script>
+
+<!-- local scripts -->
+
+<!-- <script src="scripts.js"></script> -->
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+
+<!-- Get the snotel site metadata from the variable passed by the home view function in flask -->
+<!-- note: it is a python list of dictionaries which equals a JS array of objs -->
+<script type="text/javascript">
+  const siteDataArr = load_snotel_site_metadata( {{site_data_list|tojson}} );
+  // console.log(siteDataArr[0]);  
+</script>
+  
+<!-- bootstrap scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
+  crossorigin="anonymous">
+</script>
+
+
+      
+</body>
+</html>
+
+<script>
+// Found this to help make the plotly plots more responsive
+  (function() {
+  var d3 = Plotly.d3;
+  var WIDTH_IN_PERCENT_OF_PARENT = 100,
+    HEIGHT_IN_PERCENT_OF_PARENT = 90;
+
+  var gd3 = d3.selectAll(".responsive-plot")
+    .style({width: WIDTH_IN_PERCENT_OF_PARENT + '%', 'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+            height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh', 'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+    });
+
+  // var gd3 = d3.selectAll(".responsive-plot")
+  //   .style({width: WIDTH_IN_PERCENT_OF_PARENT + '%', 'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+  //          height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh', 'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+  //   });
+
+  var nodes_to_resize = gd3[0]; //not sure why but the goods are within a nested array
+  window.onresize = function() {
+    for (var i = 0; i < nodes_to_resize.length; i++) {
+      Plotly.Plots.resize(nodes_to_resize[i]);
+    }
+  };
+  })();
+</script>
+
+
