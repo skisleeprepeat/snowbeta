@@ -258,8 +258,9 @@ def get_hourly_data(site_list):
 
         df["DateTime"] = pd.to_datetime(df['DateTime'])
 
-        # during development, write the file to a csv to be called locally
-        df.to_csv('dev/dev_data_hourly.csv', index=False, sep=',', mode='a')
+        # during development, write the file to a csv to be called locally, comment out for production, as the heroku app
+        # will not be able to find the 'dev/' directory
+        # df.to_csv('dev/dev_data_hourly.csv', index=False, sep=',', mode='a')
     
     df = format_hourly_SNOTEL_dataframe(df)
 
@@ -338,7 +339,7 @@ def get_daily_data(site_list):
         df["Date"] = pd.to_datetime(df['Date'])
 
         # during developement, write the file to a csv to be called locally
-        df.to_csv('dev/dev_data_daily.csv', index=False, sep=',', mode='a')
+        # df.to_csv('dev/dev_data_daily.csv', index=False, sep=',', mode='a')
 
     df = format_daily_SNOTEL_dataframe(df)
 
@@ -408,7 +409,7 @@ def get_POR_data(site_list):
         df["Date"] = pd.to_datetime(df['Date'])
 
         # during developement, write the file to a csv to be called locally
-        df.to_csv('dev/dev_data_POR.csv', index=False, sep=',', mode='a')
+        # df.to_csv('dev/dev_data_POR.csv', index=False, sep=',', mode='a')
 
     df = format_POR_SNOTEL_dataframe(df)
     print(df.info())
