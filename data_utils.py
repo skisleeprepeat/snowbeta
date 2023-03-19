@@ -1,7 +1,7 @@
 # utility functions for updating the daily data and the hourly data.
 
 # dependencies
-from asyncio.windows_events import NULL
+# from asyncio.windows_events import NULL
 from datetime import datetime as dt, timedelta
 import pytz
 import os.path
